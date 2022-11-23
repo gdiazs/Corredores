@@ -55,8 +55,14 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -110,6 +116,18 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Abstractions, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>packages\Unity.Abstractions.5.11.1\lib\net47\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>packages\Unity.Container.5.11.1\lib\net47\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mvc, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>packages\Unity.Mvc.5.11.1\lib\net47\Unity.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -128,48 +146,50 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\CorredoresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Corredor.cs">
-      <DependentUpon>CorredoresEntitiesDB.tt</DependentUpon>
+    <Compile Include="Entities\Corredor.cs">
+      <DependentUpon>CorredoresDBEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="CorredoresEntitiesDB.Context.cs">
+    <Compile Include="Entities\CorredoresDBEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CorredoresEntitiesDB.Context.tt</DependentUpon>
+      <DependentUpon>CorredoresDBEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="CorredoresEntitiesDB.cs">
+    <Compile Include="Entities\CorredoresDBEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CorredoresEntitiesDB.tt</DependentUpon>
+      <DependentUpon>CorredoresDBEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="CorredoresEntitiesDB.Designer.cs">
+    <Compile Include="Entities\CorredoresDBEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CorredoresEntitiesDB.edmx</DependentUpon>
+      <DependentUpon>CorredoresDBEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CorredorFormulariosModelo.cs" />
+    <Compile Include="Models\TiemposModelo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TiemposCorredor.cs">
-      <DependentUpon>CorredoresEntitiesDB.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Services\CorredoresServicio.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="CorredoresEntitiesDB.Context.tt">
+    <Content Include="Entities\CorredoresDBEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CorredoresEntitiesDB.Context.cs</LastGenOutput>
-      <DependentUpon>CorredoresEntitiesDB.edmx</DependentUpon>
+      <DependentUpon>CorredoresDBEntities.edmx</DependentUpon>
+      <LastGenOutput>CorredoresDBEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="CorredoresEntitiesDB.tt">
+    <Content Include="Entities\CorredoresDBEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CorredoresEntitiesDB.edmx</DependentUpon>
-      <LastGenOutput>CorredoresEntitiesDB.cs</LastGenOutput>
+      <DependentUpon>CorredoresDBEntities.edmx</DependentUpon>
+      <LastGenOutput>CorredoresDBEntities.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -177,12 +197,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="CorredoresEntitiesDB.edmx">
+    <EntityDeploy Include="Entities\CorredoresDBEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CorredoresEntitiesDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>CorredoresDBEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="CorredoresEntitiesDB.edmx.diagram">
-      <DependentUpon>CorredoresEntitiesDB.edmx</DependentUpon>
+    <Content Include="Entities\CorredoresDBEntities.edmx.diagram">
+      <DependentUpon>CorredoresDBEntities.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -213,7 +233,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

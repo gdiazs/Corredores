@@ -1,7 +1,121 @@
-﻿
+﻿@using Corredores.Entities;
+@model Corredores.Models.CorredorFormulariosModelo
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
-Hello
+
+<div class="row">
+    <div class="col-sm-6 col-md-offset-3">
+        <div class="w-100 text-align-center fw-bold">
+            <h3>2000 metros planos - Tiempos</h3>
+        </div>
+        
+        <ul class="list-group">
+            @{
+                var i = 1;
+            }
+            @foreach (var corredor in Model.Corredores)
+            {
+                <li class="list-group-item display-flex justify-content-between">
+                    <div class="pt-2 display-inline-block" style="font-size:1.1em">
+                        <span class="fw-bold">(@i)</span> 
+                        <span>@corredor.CorredorNombre</span>
+                        @if (@corredor.Minutos != null)
+                        {
+                            <span class="fw-bold"> - Duración:</span>
+                            <span >@corredor.Minutos m @corredor.Segundos s</span>
+                        }
+                    </div>
+    
+
+
+                    <div>
+                        <a href="/Corredores/Eliminar?id=@corredor.CorredorID" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                        <a data-toggle="modal" href="#mi_modal" class="btn btn-primary" onclick="seleccionarCorredor(@corredor.CorredorID)"><i class="glyphicon glyphicon-time"></i></a>
+                    </div>
+
+                </li>
+                i++;
+
+            }
+        </ul>
+        <div class="modal fade" id="mi_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Agregar tiempos</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="padding:15px">
+                            @using (Html.BeginForm("AgregarTiempos", "Corredores", null, FormMethod.Post, new { @id = "agregarTiempos", @name = "agregarTiempos" }))
+                            {
+                                <input type="hidden" name="NuevoTiempoDeCorredor.CorredorID" value="" />
+                                <div class="form-group">
+                                    <label>Minutos</label>
+                                    @Html.TextBoxFor(m => m.NuevoTiempoDeCorredor.Minutos, new { @class = "form-control", @type = "number" })
+                                    @Html.ValidationMessageFor(m => m.NuevoTiempoDeCorredor.Minutos, "", new { @class = "text-danger", })
+                                </div>
+                                <div class="form-group">
+                                    <label>Segundos</label>
+                                    @Html.TextBoxFor(m => m.NuevoTiempoDeCorredor.Segundos, new { @class = "form-control", @type = "number" })
+                                    @Html.ValidationMessageFor(m => m.NuevoTiempoDeCorredor.Segundos, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="w-100 text-align-end">
+                                    <input type="submit" value="Guardar tiempos" class="btn btn-primary" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 col-md-offset-3">
+        <div class="panel panel-default">
+            @if (i <= 10)
+            {
+                <div class="panel-heading fw-bold">
+                    Nuevo Corredor
+                </div>
+
+                <div class="panel-body">
+                    @using (Html.BeginForm("Agregar", "Corredores"))
+                    {
+                        <div class="form-group">
+                            <label>Nombre de corredor</label>
+                            @Html.TextBoxFor(m => m.NuevoCorredor.CorredorNombre, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.NuevoCorredor.CorredorNombre, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="w-100 text-align-end">
+                            <input type="submit" value="Agregar" class="btn btn-primary" />
+                        </div>
+
+                    }
+                </div>
+            }
+            else { 
+                <h4 class="p-3 fw-bold text-align-center">Máximo de participantes es 10</h4>
+                <div class="text-align-center w-100">
+                    <p>Puede elimiar alguno de la lista</p>
+                </div>
+                
+            }
+
+        </div>
+    </div>
+
+    <script>
+        function seleccionarCorredor(corredorId) {
+            document.forms.agregarTiempos['NuevoTiempoDeCorredor.CorredorID'].value = corredorId;
+        }
+
+
+    </script>
+</div>

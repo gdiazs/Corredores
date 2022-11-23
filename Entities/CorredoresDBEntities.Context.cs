@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Corredores
+namespace Corredores.Entities
 {
     using System;
     using System.Data.Entity;
@@ -26,6 +26,5 @@ namespace Corredores
         }
     
         public virtual DbSet<Corredor> Corredors { get; set; }
-        public virtual DbSet<TiemposCorredor> TiemposCorredors { get; set; }
     }
 }

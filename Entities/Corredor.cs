@@ -7,23 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Corredores
+namespace Corredores.Entities
 {
     using System;
     using System.Collections.Generic;
     
     public partial class Corredor
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Corredor()
-        {
-            this.TiemposCorredors = new HashSet<TiemposCorredor>();
-        }
-    
         public int CorredorID { get; set; }
         public string CorredorNombre { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TiemposCorredor> TiemposCorredors { get; set; }
+        public Nullable<int> Minutos { get; set; }
+        public Nullable<int> Segundos { get; set; }
     }
 }
