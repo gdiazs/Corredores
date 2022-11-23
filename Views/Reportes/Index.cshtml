@@ -1,0 +1,57 @@
+﻿@model Corredores.Models.ReporteCorredores
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-md-6 col-lg-offset-3">
+
+        <div class="panel panel-default">
+            <div class="panel-heading fw-bold text-align-center">
+                Reporte de velocidad
+            </div>
+
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr class="text-align-end fw-bold">
+                            <td>Corredores</td>
+                            <td>Tiempo (minutos, segundos)</td>
+                            <td>m/s</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var corredor in Model.Corredores)
+                        {
+                            <tr class="text-align-end">
+                                <td>@corredor.Nombre</td>
+                                <td class="text-align-center">@corredor.Tiempos</td>
+                                <td>@corredor.Velocidad</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                <hr />
+                <table class="table text-align-end">
+                    <tr>
+                        <td class="fw-bold">Mejor velocidad:</td>
+                        <td>@Model.MejorVelocidad</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Peor velocidad:</td>
+                        <td>@Model.PeorVelocidad</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Velocidad promedio:</td>
+                        <td>@Model.VelocidadPromedio</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+

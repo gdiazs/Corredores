@@ -3,15 +3,23 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
-
 <div class="row">
-    <div class="col-sm-6 col-md-offset-3">
+    <div class="col-md-6 col-lg-offset-3">
+
         <div class="w-100 text-align-center fw-bold">
             <h3>2000 metros planos - Tiempos</h3>
         </div>
-        
+
+        @if (TempData["CorredoresInvalidos"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["CorredoresInvalidos"]
+            </div>
+        }
+
+        <div class="m-1 text-align-end">
+            <a class="btn btn-default" href="/Reportes">Reporte</a>
+        </div>
         <ul class="list-group">
             @{
                 var i = 1;
@@ -20,15 +28,15 @@
             {
                 <li class="list-group-item display-flex justify-content-between">
                     <div class="pt-2 display-inline-block" style="font-size:1.1em">
-                        <span class="fw-bold">(@i)</span> 
+                        <span class="fw-bold">(@i)</span>
                         <span>@corredor.CorredorNombre</span>
                         @if (@corredor.Minutos != null)
                         {
                             <span class="fw-bold"> - Duración:</span>
-                            <span >@corredor.Minutos m @corredor.Segundos s</span>
+                            <span>@corredor.Minutos m @corredor.Segundos s</span>
                         }
                     </div>
-    
+
 
 
                     <div>
@@ -77,7 +85,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-6 col-md-offset-3">
+    <div class="col-md-6 col-lg-offset-3">
         <div class="panel panel-default">
             @if (i <= 10)
             {
@@ -100,12 +108,13 @@
                     }
                 </div>
             }
-            else { 
+            else
+            {
                 <h4 class="p-3 fw-bold text-align-center">Máximo de participantes es 10</h4>
                 <div class="text-align-center w-100">
-                    <p>Puede elimiar alguno de la lista</p>
+                    <p>Puede eliminar alguno de la lista</p>
                 </div>
-                
+
             }
 
         </div>
