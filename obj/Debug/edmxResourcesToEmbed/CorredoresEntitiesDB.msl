@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CorredoresDBModelStoreContainer" CdmEntityContainer="CorredoresDBEntities">
+    <EntitySetMapping Name="Corredors">
+      <EntityTypeMapping TypeName="CorredoresDBModel.Corredor">
+        <MappingFragment StoreEntitySet="Corredor">
+          <ScalarProperty Name="CorredorID" ColumnName="CorredorID" />
+          <ScalarProperty Name="CorredorNombre" ColumnName="CorredorNombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TiemposCorredors">
+      <EntityTypeMapping TypeName="CorredoresDBModel.TiemposCorredor">
+        <MappingFragment StoreEntitySet="TiemposCorredor">
+          <ScalarProperty Name="TiemposCorredorID" ColumnName="TiemposCorredorID" />
+          <ScalarProperty Name="CorredorID" ColumnName="CorredorID" />
+          <ScalarProperty Name="Minutos" ColumnName="Minutos" />
+          <ScalarProperty Name="Segundos" ColumnName="Segundos" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

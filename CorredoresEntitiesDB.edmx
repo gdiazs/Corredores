@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CorredoresDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Corredor">
+          <Key>
+            <PropertyRef Name="CorredorID" />
+          </Key>
+          <Property Name="CorredorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CorredorNombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CorredoresDB.dbo.TiemposCorredor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TiemposCorredor">
+          <Key>
+            <PropertyRef Name="TiemposCorredorID" />
+            <PropertyRef Name="Minutos" />
+            <PropertyRef Name="Segundos" />
+          </Key>
+          <Property Name="TiemposCorredorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CorredorID" Type="int" />
+          <Property Name="Minutos" Type="int" Nullable="false" />
+          <Property Name="Segundos" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="TiemposCorredor_FK">
+          <End Role="Corredor" Type="Self.Corredor" Multiplicity="0..1" />
+          <End Role="TiemposCorredor" Type="Self.TiemposCorredor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Corredor">
+              <PropertyRef Name="CorredorID" />
+            </Principal>
+            <Dependent Role="TiemposCorredor">
+              <PropertyRef Name="CorredorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CorredoresDBModelStoreContainer">
+          <EntitySet Name="Corredor" EntityType="Self.Corredor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiemposCorredor" EntityType="Self.TiemposCorredor" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TiemposCorredor].[TiemposCorredorID] AS [TiemposCorredorID], 
+    [TiemposCorredor].[CorredorID] AS [CorredorID], 
+    [TiemposCorredor].[Minutos] AS [Minutos], 
+    [TiemposCorredor].[Segundos] AS [Segundos]
+    FROM [dbo].[TiemposCorredor] AS [TiemposCorredor]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="TiemposCorredor_FK" Association="Self.TiemposCorredor_FK">
+            <End Role="Corredor" EntitySet="Corredor" />
+            <End Role="TiemposCorredor" EntitySet="TiemposCorredor" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CorredoresDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Corredor">
+          <Key>
+            <PropertyRef Name="CorredorID" />
+          </Key>
+          <Property Name="CorredorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CorredorNombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TiemposCorredors" Relationship="Self.TiemposCorredor_FK" FromRole="Corredor" ToRole="TiemposCorredor" />
+        </EntityType>
+        <EntityType Name="TiemposCorredor">
+          <Key>
+            <PropertyRef Name="TiemposCorredorID" />
+            <PropertyRef Name="Minutos" />
+            <PropertyRef Name="Segundos" />
+          </Key>
+          <Property Name="TiemposCorredorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CorredorID" Type="Int32" />
+          <Property Name="Minutos" Type="Int32" Nullable="false" />
+          <Property Name="Segundos" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Corredor" Relationship="Self.TiemposCorredor_FK" FromRole="TiemposCorredor" ToRole="Corredor" />
+        </EntityType>
+        <Association Name="TiemposCorredor_FK">
+          <End Role="Corredor" Type="Self.Corredor" Multiplicity="0..1" />
+          <End Role="TiemposCorredor" Type="Self.TiemposCorredor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Corredor">
+              <PropertyRef Name="CorredorID" />
+            </Principal>
+            <Dependent Role="TiemposCorredor">
+              <PropertyRef Name="CorredorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CorredoresDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Corredors" EntityType="Self.Corredor" />
+          <EntitySet Name="TiemposCorredors" EntityType="Self.TiemposCorredor" />
+          <AssociationSet Name="TiemposCorredor_FK" Association="Self.TiemposCorredor_FK">
+            <End Role="Corredor" EntitySet="Corredors" />
+            <End Role="TiemposCorredor" EntitySet="TiemposCorredors" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CorredoresDBModelStoreContainer" CdmEntityContainer="CorredoresDBEntities">
+          <EntitySetMapping Name="Corredors">
+            <EntityTypeMapping TypeName="CorredoresDBModel.Corredor">
+              <MappingFragment StoreEntitySet="Corredor">
+                <ScalarProperty Name="CorredorID" ColumnName="CorredorID" />
+                <ScalarProperty Name="CorredorNombre" ColumnName="CorredorNombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiemposCorredors">
+            <EntityTypeMapping TypeName="CorredoresDBModel.TiemposCorredor">
+              <MappingFragment StoreEntitySet="TiemposCorredor">
+                <ScalarProperty Name="TiemposCorredorID" ColumnName="TiemposCorredorID" />
+                <ScalarProperty Name="CorredorID" ColumnName="CorredorID" />
+                <ScalarProperty Name="Minutos" ColumnName="Minutos" />
+                <ScalarProperty Name="Segundos" ColumnName="Segundos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
