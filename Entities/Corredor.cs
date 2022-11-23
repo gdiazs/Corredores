@@ -11,10 +11,13 @@ namespace Corredores.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Corredor
     {
         public int CorredorID { get; set; }
+
+        [Required]
         public string CorredorNombre { get; set; }
         public Nullable<int> Minutos { get; set; }
         public Nullable<int> Segundos { get; set; }
