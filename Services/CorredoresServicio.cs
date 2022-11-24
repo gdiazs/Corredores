@@ -44,5 +44,34 @@ namespace Corredores.Services
                 db.SaveChanges();
             }
         }
+
+        public ReporteCorredores GenerarReporteCorredores(IEnumerable<Corredor> corredores) {
+            var corredoresModelo = corredores
+                    .Select(corredor => new CorredorModelo() { Nombre = corredor.CorredorNombre, Tiempos = $"{corredor.Minutos}:{corredor.Segundos}", Velocidad = CalcularVelocidad(corredor) });
+
+
+            var listaDeMetricas = corredoresModelo.ToList().OrderByDescending(corredor => Decimal.Parse(corredor.Velocidad));
+            var promedioVelocidad = listaDeMetricas.Average(corredor => Decimal.Parse(corredor.Velocidad));
+
+            var primero = listaDeMetricas.First();
+            var ultimo = listaDeMetricas.Last();
+
+            return new ReporteCorredores()
+            {
+                Corredores = corredoresModelo,
+                PeorVelocidad = ultimo.Velocidad,
+                MejorVelocidad = primero.Velocidad,
+                VelocidadPromedio = promedioVelocidad.ToString("0.##")
+            };
+
+        }
+
+        private string CalcularVelocidad(Corredor corredor)
+        {
+            decimal segundosTotales = (corredor.Minutos.Value * 60) + corredor.Segundos.Value;
+            decimal resultado = 2000 / segundosTotales;
+            return resultado.ToString("0.##");
+        }
+
     }
 }
